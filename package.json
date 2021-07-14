@@ -1,0 +1,40 @@
+{
+  "name": "golang",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node dist/index.js",
+    "clean": "rimraf \"dist/*\"",
+    "tsc": "tsc",
+    "build-files": "copyfiles -u 0 src/views/*.html dist/",
+    "build": "npm run tsc",
+    "watch": "./node_modules/nodemon/bin/nodemon.js -e ts  --exec \"tsc\"",
+    "start-dev": "nodemon --signal SIGKILL --delay 2 dist",
+    "build-run": "tsc && npm start"
+  },
+  "dependencies": {
+    "@hapi/boom": "^9.1.2",
+    "compression": "^1.7.4",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "cron": "^1.8.2",
+    "dotenv": "^8.2.0",
+    "express": "4.17.1",
+    "image-to-base64": "^2.1.1",
+    "mongoose": "^5.11.8",
+    "morgan": "^1.10.0",
+    "mysql2": "^2.2.5",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6",
+    "sequelize": "^6.6.5",
+    "sequelize-json": "^2.1.2",
+    "tslib": "^2.3.0",
+    "typescript": "*"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  },
+  "author": "",
+  "license": "ISC"
+}
