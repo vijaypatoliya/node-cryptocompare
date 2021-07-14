@@ -29,7 +29,6 @@ const initiateCron = async (init: any, cronName: string) => {
                 await job.start()
                 console.log(`###${cronName} job finished successfully!`)
             } catch (e) {
-                console.log(e)
             }
         }), undefined, true
         )

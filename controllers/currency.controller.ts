@@ -13,7 +13,6 @@ const getPrice = async (req: Request, res: Response) => {
             /** Get Currency data from crypto compare api */
             response = await getCurrencyData({ fsyms, tsyms });
         } catch (err) {
-            console.log('error while get currency data : ', err)
         }
         if (response.RAW) return res.json(response)
 
@@ -37,7 +36,6 @@ const getPrice = async (req: Request, res: Response) => {
         })
         return res.json(response)
     } catch (e) {
-        console.log(e)
         return res.status(403).send(e.message)
     }
 }
