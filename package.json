@@ -3,6 +3,16 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "jest-stare": {
+    "resultDir": "test/node-crypto",
+    "reportTitle": "Node Crypto Test Report",
+    "additionalResultsProcessors": [
+      "jest-junit"
+    ],
+    "coverageLink": "../coverage/index.html",
+    "jestStareConfigJson": "jest-stare.json",
+    "jestGlobalConfigJson": "globalStuff.json"
+  },
   "scripts": {
     "start": "node dist/index.js",
     "clean": "rimraf \"dist/*\"",
@@ -13,7 +23,10 @@
     "build": "npm run tsc",
     "watch": "./node_modules/nodemon/bin/nodemon.js -e ts  --exec \"tsc\"",
     "start-dev": "nodemon --signal SIGKILL --delay 2 dist",
-    "build-run": "tsc && npm start"
+    "build-run": "tsc && npm start",
+    "test": "NODE_ENV=test jest --testPathPattern=test/",
+    "test-coverage": "NODE_ENV=test jest --testPathPattern=test/ --reporters default jest-stare --config --coverage",
+    "test-watch": "NODE_ENV=test jest --testPathPattern=test/  --verbose --watchAll"
   },
   "dependencies": {
     "@hapi/boom": "^9.1.2",
@@ -37,7 +50,12 @@
     "typescript": "*"
   },
   "devDependencies": {
-    "nodemon": "^2.0.6"
+    "jest": "^27.0.6",
+    "jest-serial-runner": "^1.1.0",
+    "jest-stare": "^2.2.2",
+    "nodemon": "^2.0.6",
+    "ts-jest": "^27.0.3",
+    "ts-node": "^10.1.0"
   },
   "author": "",
   "license": "ISC"

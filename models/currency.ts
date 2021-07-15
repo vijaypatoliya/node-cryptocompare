@@ -28,4 +28,4 @@ export const Currency = sequelize.define<ICurrency>('currency', {
         type: DataTypes.JSON,
     },
 })
-// Currency.sync({ alter: true })
+Currency.sync({ alter: true })
