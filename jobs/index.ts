@@ -17,7 +17,7 @@ const initiateCron = async (init: any, cronName: string) => {
             return;
         };
         console.log(`${cronName} cronJob initiated successfully`)
-       const job= new CronJob(`
+       const job = new CronJob(`
             ${cronConfigObj.seconds}
             ${cronConfigObj.minutes}
             ${cronConfigObj.hours}
@@ -33,7 +33,6 @@ const initiateCron = async (init: any, cronName: string) => {
         }), undefined, true
         )
     } catch (e) {
-        throw new Error(e.message)
     }
 }
 

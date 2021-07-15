@@ -10,7 +10,7 @@ interface IConfig {
 const config: IConfig = {
     PORT: Number(process.env.PORT) || 3000,
     NODE_ENV: process.env.NODE_ENV,
-    DB_URL: process.env.DB_URL
+    DB_URL: process.env.DB_URL,
 }
 
 export default config

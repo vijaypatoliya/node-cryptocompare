@@ -7,6 +7,8 @@
     "start": "node dist/index.js",
     "clean": "rimraf \"dist/*\"",
     "tsc": "tsc",
+    "lint": "tslint --project tsconfig.json",
+    "lint-fix": "npm run lint -- --fix",
     "build-files": "copyfiles -u 0 src/views/*.html dist/",
     "build": "npm run tsc",
     "watch": "./node_modules/nodemon/bin/nodemon.js -e ts  --exec \"tsc\"",
@@ -29,7 +31,9 @@
     "request-promise": "^4.2.6",
     "sequelize": "^6.6.5",
     "sequelize-json": "^2.1.2",
+    "socket.io": "^4.1.3",
     "tslib": "^2.3.0",
+    "tslint": "^6.1.3",
     "typescript": "*"
   },
   "devDependencies": {

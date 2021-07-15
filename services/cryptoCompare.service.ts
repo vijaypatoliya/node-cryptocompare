@@ -9,7 +9,7 @@ const getCurrencyData = async (qs?: any) => {
                 fsyms: cryptoCompare.fromSymbol.join(','),
                 tsyms: cryptoCompare.toSymbol.join(','),
             },
-            method: 'GET'
+            method: 'GET',
         }
         const result = await request(options)
         return typeof result === 'string' ? JSON.parse(result) : result

@@ -5,6 +5,8 @@ import bodyParser from 'body-parser'
 import logger from 'morgan'
 import path from 'path'
 import cors from 'cors'
+import http from 'http';
+import { Server, Socket } from 'socket.io';
 
 import config from './config'
 
@@ -28,10 +30,29 @@ app.use(bodyParser.json({ limit: '50mb' }))
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cookieParser())
 
+/** Api Routes */
 app.use('/api/v1', cors(), indexRoutes)
 
 app.get('/', (req: Request, res: Response) => {
-    res.send('Go lang Cron Service.');
+    res.sendFile(path.resolve('./view/index.html'));
 })
 
-app.listen(config.PORT, () => console.log(`API listening on ${config.PORT}`))
+/** Create http server */
+const httpServer = http.createServer(app);
+
+/** Create socket.io server */
+const io = new Server(httpServer);
+
+/** import getSocketEvents for handle incoming socket events */
+import { getSocketEvents } from './webSocket/index'
+
+/** Socket connection */
+io.on('connection', (socket: Socket) => {
+    socket.on('server-event', async (eventData: any, callback) => {
+        callback(await getSocketEvents(socket, eventData.eventName, eventData.eventBody))
+    });
+});
+
+httpServer.listen(config.PORT, () => console.log(`API listening on ${config.PORT}`))
+
+export { io }

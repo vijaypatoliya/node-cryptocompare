@@ -1,6 +1,7 @@
 import { getCurrencyData } from '../services/cryptoCompare.service';
 import { cryptoCompare } from '../constants/app.constants';
 import { upsert } from '../services/currency.service';
+import { sendSocketEvents } from '../webSocket/index';
 
 const init = async () => {
     try {
@@ -15,22 +16,24 @@ const init = async () => {
                     fromSymbol: oneFromSymbol,
                     toSymbol: oneToSymbol,
                     raw: currencyData.RAW[oneFromSymbol][oneToSymbol],
-                    display: currencyData.DISPLAY[oneFromSymbol][oneToSymbol]
+                    display: currencyData.DISPLAY[oneFromSymbol][oneToSymbol],
                 })
             });
         });
-        for (let i = 0; i < createData.length; i++) {
+        for (const createObj of createData) {
             /** Upsert data into db */
-            await upsert({ fromSymbol: createData[i].fromSymbol, toSymbol: createData[i].toSymbol }, createData[i])
+            await upsert({ fromSymbol: createObj.fromSymbol, toSymbol: createObj.toSymbol }, createObj)
         }
+        /** Brodcast updated currency to all web sockets */
+        await sendSocketEvents(undefined, 'brodcastAll', 'service-price', currencyData)
         return;
     } catch (error) {
         throw new Error(error.message)
     }
 }
-const cronName: string = "CURRENCY_SYNC";
+const cronName = 'CURRENCY_SYNC';
 
 export default {
     init,
-    cronName
+    cronName,
 }
